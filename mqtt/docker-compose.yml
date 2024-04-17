@@ -1,0 +1,12 @@
+services:
+  # mqtt server
+  mosquitto:
+    image: eclipse-mosquitto:2
+    volumes:
+      - "./mosquitto:/mosquitto"
+
+  # nodejs client
+  client:
+    build: client
+    volumes:
+      - "./client:/usr/src/node/app"
