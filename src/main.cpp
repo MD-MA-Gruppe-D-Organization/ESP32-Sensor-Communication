@@ -1,50 +1,31 @@
-#include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define OLED_RESET -1    // Reset pin # (or -1 if sharing Arduino reset pin)
+#include "SSD1306Wire.h"
+SSD1306Wire display(0x3C, 4, 15);
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-// put function declarations here:
-int myFunction(int, int);
 
-void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(921600);
-  Serial.println("Hello From The Setup");
+void setup_ssd1306()
+{
+    Serial.begin(921600); // Initialize serial communication at 115200 baud rate
+    Wire.begin(21, 22);                // Initialize the I2C communication with the display
+    display.init();                    // Initialize the display
+    display.setFont(ArialMT_Plain_16); // Set the font for the display
+    display.clear();                   // Clear the display
+    display.setTextAlignment(TEXT_ALIGN_LEFT);
+    display.drawString(0, 0, "Hello World");
+    display.display();
+}
 
-  // initialize with the I2C addr 0x3C (for the 128x64)
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
-  }
-
-  // Clear the buffer
-  display.clearDisplay();
-  
-  // Draw Hello, World! text
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.println("Hello, World!");
-
-  // Display the text
+void setup(){
+  setup_ssd1306();
+};
+void loop(){
+  Serial.println("Test");
+  delay(1000);
+  display.clear();                   // Clear the display
+  display.setTextAlignment(TEXT_ALIGN_LEFT);
+  display.drawString(0, 0, "Hello World");
   display.display();
-}
+};
 
-void loop() {
-  delay(1000);
-  digitalWrite(LED_BUILTIN, HIGH);
-  Serial.println("Hello From The Loop");
-  delay(1000);
-  digitalWrite(LED_BUILTIN, LOW);
-}
-
-// https://www.youtube.com/watch?v=tc3Qnf79Ny8
-int myFunction(int x, int y) {
-  return x + y;
-}
