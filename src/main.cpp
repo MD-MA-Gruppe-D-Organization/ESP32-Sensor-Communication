@@ -9,8 +9,9 @@ SSD1306Wire display(0x3c, 4, 15);   // ADDRESS, SDA, SCL  -  SDA and SCL usually
 
 const int TRIG_PIN = 12;    // HC-SR04 Trig pin
 const int ECHO_PIN = 13;    // HC-SR04 Echo pin
+String distanceString = "Waiting for measurement";
 
-Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);	
+Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
 #define MAX_DISTANCE 200
  
 
@@ -40,7 +41,9 @@ void loop() {
   display.clear();
   int distance = ultrasonic.read();
 
-  String distanceString = String(distance) + "cm";
+  if(distance<350){   // If illegal value, ignore it and print the value from before
+    distanceString = String(distance) + "cm";
+  }
   
   display.drawString(4, 25, distanceString);
   display.display();
