@@ -14,38 +14,40 @@ Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
 #define MAX_DISTANCE 200
  
 
-
-void setup() {
+void initDisplay()
+{
   pinMode(16, OUTPUT);
   digitalWrite(16, LOW);
   delay(50);
   digitalWrite(16, HIGH);
-
   display.init();
   display.flipScreenVertically();
   //display.setFont(ArialMT_Plain_10);
   display.setTextAlignment(TEXT_ALIGN_LEFT);
+}
 
-  //pinMode(LED_BUILTIN, OUTPUT);
+
+void setup() {
+
+  initDisplay();
   pinMode(TRIG_PIN, OUTPUT);  // Set TRIG_PIN (pin 12) as output
   pinMode(ECHO_PIN, INPUT);   // Set ECHO_PIN (pin 13) as input
   Serial.begin(9600);
 }
 
+
 void loop() {
   display.clear();
-  display.drawString(4, 25, "Hello world 1");
-  //display.drawString(128, 54, String(millis()));
+  int distance = ultrasonic.read();
+
+  String distanceString = String(distance) + "cm";
+  
+  display.drawString(4, 25, distanceString);
   display.display();
 
-  digitalWrite(LED_BUILTIN, HIGH);
-
   Serial.print("Sensor: ");
-  Serial.print(ultrasonic.read()); // Prints the distance on the default unit (centimeters)
-  //Serial.print(ultrasonic.distanceRead());
+  Serial.print(distance); // Prints the distance on the default unit (centimeters)
   Serial.println("cm");
   
-  delay(50);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(950);
+  delay(20);
 }
