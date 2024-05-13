@@ -55,9 +55,11 @@ void initDisplay()
 }
 
 void scanForWifis(){
-  Serial.println("\nscan start");
+  delay(500);
+  Serial.println("\nScan start\n");
+  
   int n = WiFi.scanNetworks();
-  Serial.println("\nscan done\n");
+  
 
   if (n == 0) {
     Serial.println("no networks found");
@@ -76,7 +78,7 @@ void scanForWifis(){
       delay(10);
     }
   }
-  Serial.println("");
+  Serial.println("\nScan done\n");
 }
 
 void connectToWifi(){
@@ -97,8 +99,9 @@ void connectToWifi(){
 
     if(WiFi.status() == WL_CONNECTED){
       Serial.println("\n\nConnected to the WiFi network");
-      Serial.print("Local ESP32 IP: ");
+      Serial.print("Local ESP32 IP:");
       Serial.println(WiFi.localIP());
+      Serial.print("\nReceived Signal Strength Indication (RRSI): ");                             
     }
     else{
       Serial.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\nConnection Failed");
@@ -118,9 +121,7 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);                                               // Set ECHO_PIN (pin 13) as input
   Serial.begin(9600);
 
-  connectToWifi();
-  Serial.print("\n\n"); 
-  Serial.print("Received Signal Strength Indication (RRSI): ");                             
+  connectToWifi(); 
 }
 
 
