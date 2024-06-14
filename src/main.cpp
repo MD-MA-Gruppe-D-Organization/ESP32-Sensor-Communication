@@ -170,9 +170,12 @@ void loop()
 {
   client.loop();
   display.clear();
-
-  int distance = ultrasonic.read();
-  display.drawString(4, 25, String(distance) + " cm");
+  int distance = 0;
+  if(settings.active){
+    int unit = strcmp(settings.unit.c_str(), String("cm").c_str()) == 0 ? CM : INC;
+  distance = ultrasonic.read(unit);
+  }
+  
 
   doc["id"] = sensor.id;
   doc["data"] = distance;
@@ -187,16 +190,21 @@ void loop()
   doc["settings"]["measurement"] = settings.measurement;
   String jsonString;
   serializeJson(doc, jsonString);
-
-  if (client.connected())
+  
+  if (client.connected() && settings.active)
   {
     client.publish(default_topic.c_str(), jsonString.c_str());
-    display.drawString(4, 35, "Sending data");
-    display.drawString(4, 45, sensor.id);
+    display.drawString(4, 15, String(distance) + String(strcmp(settings.unit.c_str(), String("cm").c_str()) == 0 ? " cm" : " inches"));
+    display.drawString(4, 25, "Sending data");
+    display.drawString(4, 35, sensor.id);
   }
-  else
+  else if(!client.connected())
   {
-    display.drawString(4, 35, "Stopped sending data");
+    display.drawString(4, 25, "Stopped sending data");
+    display.drawString(4, 35, sensor.id);
+  }else {
+    display.drawString(4, 25, "Deactivated");
+    display.drawString(4, 35, sensor.id);
   }
 
   display.display();

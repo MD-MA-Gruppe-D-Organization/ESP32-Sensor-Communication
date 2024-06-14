@@ -21,7 +21,7 @@ mdma/#
   "settings": {
     "building": "unknown",
     "location": "unknown",
-    "unit": "cm",
+    "unit": "cm", // cm or inc
     "sensor_type": "unknown",
     "total_max": "357",
     "min_value": "0",
