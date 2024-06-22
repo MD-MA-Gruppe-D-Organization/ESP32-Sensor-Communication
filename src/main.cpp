@@ -4,61 +4,24 @@
 #include <Ultrasonic.h>
 #include <Arduino.h>
 #include <Wire.h>
-#include "SSD1306Wire.h"
+#include <SSD1306Wire.h>
 #include <ArduinoJson.h>
-#include "UUID.h"
-
-#define DEFAULT_TOPIC "mdma/id_of_sensor/building/location/measurement"
-#define SETTING_TOPIC "mdma/id_of_sensor/settings"
-
+#include <cstdlib>
+#include <iostream>
 String default_topic;
-String settings_topic;
+ int rand_id;
+JsonDocument doc; // Adjust size according to your needs
 
-struct Sensor
-{
-  String id;
-};
-Sensor sensor;
-
-struct Settings
-{
-  String building;
-  String location;
-  String unit;
-  String sensorType;
-  String totalMax;
-  String minValue;
-  String maxValue;
-  bool active;
-  String measurement;
-};
-Settings settings;
-
-JsonDocument doc;          // Adjust size according to your needs
-JsonDocument doc_settings; // Adjust size according to your needs
 void callback(char *topic, byte *payload, unsigned int length)
 {
-
-  DeserializationError error = deserializeJson(doc, payload);
-
-  if (error)
-  {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.f_str());
-    return;
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
   }
-  if (strcmp(topic, settings_topic.c_str()) == 0)
-  {
-    settings.building = doc["settings"]["building"].as<String>();
-    settings.location = doc["settings"]["location"].as<String>();
-    settings.unit = doc["settings"]["unit"].as<String>();
-    settings.sensorType = doc["settings"]["sensor_type"].as<String>();
-    settings.totalMax = doc["settings"]["total_max"].as<String>();
-    settings.minValue = doc["settings"]["min_value"].as<String>();
-    settings.maxValue = doc["settings"]["max_value"].as<String>();
-    settings.active = doc["settings"]["active"].as<bool>();
-    settings.measurement = doc["settings"]["measurement"].as<String>();
-  }
+  Serial.println();
+  
 }
 
 // Display
@@ -143,70 +106,49 @@ void display_setup()
 
 void setup()
 {
-
   Serial.begin(9600);
+  delay(2000); // Add a delay to ensure the serial terminal is ready
+
   display_setup();
   wifi_setup();
   mqtt_setup();
 
-  sensor.id = random();
-  settings.building = "unknown";
-  settings.location = "unknown";
-  settings.unit = "cm";
-  settings.sensorType = "unknown";
-  settings.totalMax = "357";
-  settings.minValue = "0";
-  settings.maxValue = settings.totalMax;
-  settings.active = true;
-  settings.measurement = "fill_level";
+  rand_id = std::rand();
+  doc["id"] = rand_id;
+  default_topic = "mdma/" + String(rand_id);
 
-  default_topic = "mdma/" + sensor.id;
-  settings_topic = "mdma/" + sensor.id + "/settings";
-
-  client.subscribe(settings_topic.c_str());
+  Serial.println("Setup complete");
 }
 
 void loop()
 {
   client.loop();
-  display.clear();
-  int distance = 0;
-  if(settings.active){
-    int unit = strcmp(settings.unit.c_str(), String("cm").c_str()) == 0 ? CM : INC;
-  distance = ultrasonic.read(unit);
-  }
-  
 
-  doc["id"] = sensor.id;
+  int distance = ultrasonic.read(CM);
+  if (distance == 0) {
+    Serial.println("Ultrasonic sensor error");
+  }
+
   doc["data"] = distance;
-  doc["settings"]["building"] = settings.building;
-  doc["settings"]["location"] = settings.location;
-  doc["settings"]["unit"] = settings.unit;
-  doc["settings"]["sensor_type"] = settings.sensorType;
-  doc["settings"]["total_max"] = settings.totalMax;
-  doc["settings"]["min_value"] = settings.maxValue;
-  doc["settings"]["max_value"] = settings.maxValue;
-  doc["settings"]["active"] = settings.active;
-  doc["settings"]["measurement"] = settings.measurement;
   String jsonString;
   serializeJson(doc, jsonString);
-  
-  if (client.connected() && settings.active)
-  {
-    client.publish(default_topic.c_str(), jsonString.c_str());
-    display.drawString(4, 15, String(distance) + String(strcmp(settings.unit.c_str(), String("cm").c_str()) == 0 ? " cm" : " inches"));
-    display.drawString(4, 25, "Sending data");
-    display.drawString(4, 35, sensor.id);
-  }
-  else if(!client.connected())
-  {
-    display.drawString(4, 25, "Stopped sending data");
-    display.drawString(4, 35, sensor.id);
-  }else {
-    display.drawString(4, 25, "Deactivated");
-    display.drawString(4, 35, sensor.id);
+
+  if (client.connected()) {
+    if (client.publish(default_topic.c_str(), jsonString.c_str())) {
+      Serial.println("Published data successfully");
+      Serial.println(jsonString.c_str());
+    } else {
+      Serial.println("Failed to publish data");
+    }
+  } else {
+    Serial.println("MQTT client not connected");
   }
 
+  display.clear();
+  display.drawString(4, 15, String(distance) + " cm");
+  display.drawString(4, 25, client.connected() ? "Sending data..." : "Stopped sending data");
+  display.drawString(4, 35, String(rand_id));
   display.display();
+
   delay(1000);
 }

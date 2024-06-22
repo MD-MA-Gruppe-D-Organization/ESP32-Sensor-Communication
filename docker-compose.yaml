@@ -3,6 +3,13 @@ networks:
     driver: bridge
 
 services:
+  mqtt-simulator:
+    build:
+      context: ./src/mqtt-simulator
+      dockerfile: Dockerfile
+    depends_on:
+      - mosquitto
+
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:latest
