@@ -3,6 +3,13 @@ networks:
     driver: bridge
 
 services:
+  mqtt-simulator:
+    build:
+      context: ./src/mqtt-simulator
+      dockerfile: Dockerfile
+    depends_on:
+      - mosquitto
+
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:latest
@@ -34,7 +41,7 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=iot_data
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=DD85150B-3871-4622-8D14-45BFE743C270
     volumes:
-      - influxdb-data:/var/lib/influxdb
+      - /opt/appdata/influxdb:/var/lib/influxdb
 
   grafana:
     image: grafana/grafana:9.3.2
