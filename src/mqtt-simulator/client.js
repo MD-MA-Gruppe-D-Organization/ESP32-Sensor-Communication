@@ -1,6 +1,6 @@
 import mqtt from 'mqtt'
 
-const url = 'mqtt://192.168.178.71:1883'
+const url = 'mqtt://192.168.137.1:1883'
 const MAX_DATA_VALUE = 357
 const MAX_ID_VALUE = 10000
 
