@@ -1,6 +1,5 @@
 #include <Wifi.h>
 #include <PubSubClient.h>
-#include "wifi_credentials.h"
 #include <Ultrasonic.h>
 #include <Arduino.h>
 #include <Wire.h>
@@ -8,6 +7,10 @@
 #include <ArduinoJson.h>
 #include <cstdlib>
 #include <iostream>
+
+//#include "wifi_credentials.h"
+#include "config.h"
+
 String default_topic;
  int rand_id;
 JsonDocument doc; // Adjust size according to your needs
@@ -51,9 +54,11 @@ void wifi_setup()
 }
 
 // MQTT Broker
-const char *mqtt_broker_ip = "192.168.178.71";
-const char *topic = "esp32";
-const int mqtt_port = 1883;
+//const char *mqtt_broker_ip = "192.168.178.71";
+
+const char *mqtt_broker_ip = MQTT_BROKER_IP; //"192.168.0.37"; // 192.168.137.1
+const char *topic = MQTT_TOPIC;
+const int mqtt_port = MQTT_PORT;
 PubSubClient client(espClient);
 
 void mqtt_setup()
