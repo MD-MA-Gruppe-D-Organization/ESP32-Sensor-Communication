@@ -56,11 +56,11 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 ### 4. Start Docker Containers ↗️
 - In the ESP32-Sensor-Communication directory, run:
 ```bash
-  docker compose up -d
+  docker compose up --build
 ```
 
-### 5. Access the Data Explorer (Optional) 📈
-#### 1. Open a web browser and go to [http://localhost:8086/signin](http://localhost:8086/signin)
+### 5. Access the InfluxDB Dashboard (Optional) 📈
+#### 1. Open a web browser and go to [http://localhost:8086](http://localhost:8086)
 
 #### 2. Use the default credentials:
 - Username: admin
