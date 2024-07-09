@@ -3,8 +3,7 @@
 
 This repository provides a setup for communicating with an ESP32 microcontroller equipped with WiFi and an HC-SR04 Ultrasonic Sensor. It uses Docker for running a local MQTT broker and includes scripts for flashing the ESP32.
 
-This is part of our garbage level reading project where the Ultrasonic Sensor reads the remaining space of a garbage bin.
-
+This is the first part of our garbage level reading project of Hochschule Heilbronn where the Ultrasonic Sensor reads the remaining space of a garbage bin. It is supposed to be used along with our 2nd repository which provides an app with an dashboard overview about the read measurements of the sensor and visualizes them. [ESP32-Sensor-Data-App]([https://www.az-delivery.de/en/products/esp-32-dev-kit-c-v4](https://github.com/MD-MA-Gruppe-D-Organization/ESP32-Sensor-Data-App))
 
 
 
