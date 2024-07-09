@@ -31,8 +31,6 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 
 ### 2. Clone the Repository
 
-[Documentation](https://linktodocumentation)
-
 ```bash
   git clone https://github.com/MD-MA-Gruppe-D-Organization/ESP32-Sensor-Communication.git
 ```
@@ -87,10 +85,6 @@ Subscribe to Check Configuration
   mosquitto_sub -h <mqtt_broker_ip> -t "mdma/#"
 ```
 
-
-```bash
-  mosquitto_sub -h <mqtt_broker_ip> -t "mdma/#"
-```
 Expected Output
 ```bash
   {
@@ -113,5 +107,7 @@ Expected Output
 
 ## Authors
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@julianertle](https://github.com/julianertle)
+- [@FelixAlexK](https://github.com/FelixAlexK)
+- [@Nick020401](https://github.com/Nick020401)
 
