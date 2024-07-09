@@ -10,13 +10,13 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 
 ## Prerequisites
 
-### 1.  Hardware:
+### 1.  Hardware 💻
 
 - [ESP32 Dev Kit C V4](https://www.az-delivery.de/en/products/esp-32-dev-kit-c-v4)
 
 - [HC-SR04 Ultrasonic Sensor](https://www.az-delivery.de/en/products/3er-set-hc-sr04-ultraschallmodule)
 
-### 2.  Software:
+### 2.  Software 📲
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
@@ -37,7 +37,7 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 ```bash
   cd ESP32-Sensor-Communication
 ```
-### 3. Configure WiFi Credentials
+### 3. Configure WiFi Credentials 🛜
 - Update the WiFi credentials in the following configuration files:
 
 - src/config.h
@@ -51,13 +51,13 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 ```
 - Use the IPv4 address from the output.
 
-### 4. Start Docker Containers
+### 4. Start Docker Containers ↗️
 - In the ESP32-Sensor-Communication directory, run:
 ```bash
   docker compose up -d
 ```
 
-### 5. Access the Data Explorer (Optional)
+### 5. Access the Data Explorer (Optional) 📈
 #### 1. Open a web browser and go to [http://localhost:8086/signin](http://localhost:8086/signin)
 
 #### 2. Use the default credentials:
@@ -66,13 +66,13 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 
 #### 3. Navigate to the Data Explorer, select iot_data, and the relevant databases to see the received data from the MQTT broker.
 
-### 6. Flashing the ESP32
+### 6. Flashing the ESP32 ✏️
 #### 1. Install the PlatformIO extension in Visual Studio Code.
 #### 2. Connect your ESP32 to your computer.
 #### 3. Open the ESP32-Sensor-Communication project in VS Code.
 #### 4. In the PlatformIO extension, select "Upload" to flash the code to the ESP32.
 
-### 7. Manual MQTT Publish and Subscribe (Optional)
+### 7. Manual MQTT Publish and Subscribe (Optional) 📩
 - To manually publish settings and check the configuration:
 
 #### Publish Settings:
@@ -106,7 +106,7 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 
 ```
 
-## Authors
+## Authors 👥
 
 - [@julianertle](https://github.com/julianertle)
 - [@FelixAlexK](https://github.com/FelixAlexK)
