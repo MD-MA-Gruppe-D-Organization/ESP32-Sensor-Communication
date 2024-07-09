@@ -43,7 +43,8 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 - src/config.h
 - src/mqtt-simulator/config.json
 
-- Replace wifi_ssid and wifi_password with your network credentials. To get your mqtt_broker_ip, open a Command Prompt and run:
+- Replace wifi_ssid and wifi_password with your network credentials.
+- Replace mqtt_broker_ip with the ip adress of your computer, to get your ip, open a Command Prompt and run:
 
 ```bash
   ipconfig
