@@ -15,7 +15,7 @@ This is the first part of our garbage level reading project of Hochschule Heilbr
 
 - [HC-SR04 Ultrasonic Sensor](https://www.az-delivery.de/en/products/3er-set-hc-sr04-ultraschallmodule)
 
-### 2.  Software 📲
+### 2.  Software 📱
 
 - This setup was tested and developed on a Windows 11 machine 
 
@@ -26,11 +26,11 @@ This is the first part of our garbage level reading project of Hochschule Heilbr
 
 
 
-## Setup Instructions
-### 1. Docker Configuration
+## Setup Instructions 
+### 1. Docker Configuration 🪛
 - Open Docker Desktop and ensure it is running in the background.
 
-### 2. Clone the Repository
+### 2. Clone the Repository 📃
 
 ```bash
   git clone https://github.com/MD-MA-Gruppe-D-Organization/ESP32-Sensor-Communication.git
@@ -52,7 +52,7 @@ This is the first part of our garbage level reading project of Hochschule Heilbr
 ```
 - Use the IPv4 address from the output.
 
-### 4. Start Docker Containers ↗️
+### 4. Start Docker Containers 🛫
 - In the ESP32-Sensor-Communication directory, run:
 ```bash
   docker compose up --build
