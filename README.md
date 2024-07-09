@@ -42,8 +42,8 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 ### 3. Configure WiFi Credentials 🛜
 - Update the WiFi credentials in the following configuration files:
 
-- src/config.h
-- src/mqtt-simulator/config.json
+- `src/config.h`
+- `src/mqtt-simulator/config.json`
 
 - Replace wifi_ssid and wifi_password with your network credentials.
 - Replace mqtt_broker_ip with the ip adress of your computer, to get your ip, open a Command Prompt and run:
