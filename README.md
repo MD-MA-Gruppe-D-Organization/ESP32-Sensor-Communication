@@ -57,7 +57,7 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
   docker compose up -d
 ```
 
-### 5. Access the Data Explorer
+### 5. Access the Data Explorer (Optional)
 #### 1. Open a web browser and go to [http://localhost:8086/signin](http://localhost:8086/signin)
 
 #### 2. Use the default credentials:
@@ -72,7 +72,7 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 #### 3. Open the ESP32-Sensor-Communication project in VS Code.
 #### 4. In the PlatformIO extension, select "Upload" to flash the code to the ESP32.
 
-### 7. Manual MQTT Publish and Subscribe
+### 7. Manual MQTT Publish and Subscribe (Optional)
 - To manually publish settings and check the configuration:
 
 #### Publish Settings:
