@@ -18,6 +18,8 @@ This is part of our garbage level reading project where the Ultrasonic Sensor re
 
 ### 2.  Software 📲
 
+- This setup was tested and developed on a Windows 11 machine 
+
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 - A code editor like [Visual Studio Code](https://code.visualstudio.com/)
