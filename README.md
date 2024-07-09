@@ -1,4 +1,4 @@
-
+ 
 # ESP32 Sensor Communication
 
 This repository provides a setup for communicating with an ESP32 microcontroller equipped with WiFi and an HC-SR04 Ultrasonic Sensor. It uses Docker for running a local MQTT broker and includes scripts for flashing the ESP32.
